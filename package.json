@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel-node ./src --extensions='.ts'",
     "production": "node ./lib",
-    "build": "babel src --out-dir lib --extensions='.ts' && cp -r src/view lib/view",
+    "build": "babel src --out-dir lib --extensions='.ts'",
     "test": "npm run build && mocha"
   },
   "author": "",
