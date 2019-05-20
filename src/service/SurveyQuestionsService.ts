@@ -10,6 +10,10 @@ export type SurveyQuestion = {
 
 export interface SurveyQuestionsService {
 
-    getAllSurveyQuestions(): Promise<SurveyQuestion[]>
+    getAllSurveyQuestions(): Promise<SurveyQuestion[]>;
+
+    getOneSurveyQuestion(id: string): Promise<SurveyQuestion>;
+
+    createSurveyQuestion(title: string, description: string, questionType: string, choices: string[]): Promise<String>;
 
 }

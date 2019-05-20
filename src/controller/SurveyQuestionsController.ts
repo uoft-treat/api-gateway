@@ -11,8 +11,16 @@ export class SurveyQuestionsController {
         this.surveyQuestionsService = surveyQuestionsService;
     }
 
-    querySurveyQuestions = async () => {
-        return await this.surveyQuestionsService.getAllSurveyQuestions();
+    querySurveyQuestions = async (obj, args) => {
+        if(!args.id) {
+            return await this.surveyQuestionsService.getAllSurveyQuestions();
+        } else {
+            return [await this.surveyQuestionsService.getOneSurveyQuestion(args.id)];
+        }
+    };
+
+    createSurveyQuestion = async (obj, args) => {
+        return await this.surveyQuestionsService.createSurveyQuestion(args.data.title, args.data.description, args.data.questionType, args.data.choices);
     };
 
     static getInstance() {
