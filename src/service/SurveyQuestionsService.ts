@@ -16,4 +16,8 @@ export interface SurveyQuestionsService {
 
     createSurveyQuestion(title: string, description: string, questionType: string, choices: string[]): Promise<String>;
 
+    deleteSurveyQuestion(id: string): Promise<String>;
+
+    updateSurveyQuestion(id: string, title: string, description: string, questionType: string, choices: string[]): Promise<String>;
+
 }

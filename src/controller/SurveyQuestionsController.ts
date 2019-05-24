@@ -23,6 +23,14 @@ export class SurveyQuestionsController {
         return await this.surveyQuestionsService.createSurveyQuestion(args.data.title, args.data.description, args.data.questionType, args.data.choices);
     };
 
+    deleteSurveyQuestion = async (obj, args) => {
+        return await this.surveyQuestionsService.deleteSurveyQuestion(args.id);
+    };
+
+    updateSurveyQuestion = async (obj, args) => {
+        return await this.surveyQuestionsService.updateSurveyQuestion(args.id, args.data.title, args.data.description, args.data.questionType, args.data.choices);
+    };
+
     static getInstance() {
         if (!instance) {
             instance = new SurveyQuestionsController(SurveyQuestionsServiceImpl.getInstance());

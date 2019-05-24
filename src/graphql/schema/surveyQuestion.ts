@@ -14,6 +14,16 @@ export const surveyQuestion = gql`
         createSurveyQuestion(
             data: CreateSurveyQuestionInput!
         ): String
+        
+        "Delete an existing survey question"
+        deleteSurveyQuestion(
+            id: String
+        ): String
+        
+        updateSurveyQuestion(
+            id: String!,
+            data: UpdateSurveyQuestionInput!
+        ): String
     }
     
     type SurveyQuestion {
@@ -27,6 +37,8 @@ export const surveyQuestion = gql`
         questionType: SurveyQuestionType
         "If single choice, this is a list of choices available"
         choices: [String]
+        "Lock time, if this is set, then the question cannot be removed or updated anymore"
+        lockedAt: String
         "Creation time"
         createdAt: String
         "Update time"
@@ -42,6 +54,13 @@ export const surveyQuestion = gql`
         title: String!
         description: String
         questionType: SurveyQuestionType!
+        choices: [String]
+    }
+    
+    input UpdateSurveyQuestionInput {
+        title: String
+        description: String
+        questionType: SurveyQuestionType
         choices: [String]
     }
 `;

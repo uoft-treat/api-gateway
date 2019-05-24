@@ -8,6 +8,8 @@ export const customErrorWrapper = (e) => {
             throw new ApolloError(e.response.data.message, "NOT_FOUND");
         } else if (e.response.status === 500) {
             throw new ApolloError(e.response.data.message, "BAD_GATEWAY");
+        } else if (e.response.status === 409) {
+            throw new ApolloError(e.response.data.message, "CONFLICT");
         }
     }
     throw e;

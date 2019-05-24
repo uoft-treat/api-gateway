@@ -5,6 +5,8 @@ export const surveyQuestion = {
         surveyQuestions: SurveyQuestionsController.getInstance().querySurveyQuestions
     },
     Mutation: {
-        createSurveyQuestion: SurveyQuestionsController.getInstance().createSurveyQuestion
+        createSurveyQuestion: SurveyQuestionsController.getInstance().createSurveyQuestion,
+        deleteSurveyQuestion: SurveyQuestionsController.getInstance().deleteSurveyQuestion,
+        updateSurveyQuestion: SurveyQuestionsController.getInstance().updateSurveyQuestion,
     }
 };
