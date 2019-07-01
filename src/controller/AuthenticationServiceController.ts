@@ -27,6 +27,10 @@ export class AuthenticationServiceController {
         return await this.authenticationService.createUserTokenByUsernameAndPassword(username, password);
     };
 
+    getMe = async (_, __, {user}) => {
+        return user;
+    };
+
     static getInstance() {
         if (!instance) {
             instance = new AuthenticationServiceController(

@@ -15,6 +15,11 @@ export const authentication = gql`
         body: String
     }
     
+    extend type Query {
+        "Get currently authenticated user."
+        me: User
+    }
+    
     extend type Mutation {
         
         "Create a new user. Default role will be ADMIN."
