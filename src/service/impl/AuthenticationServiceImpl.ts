@@ -38,6 +38,16 @@ export class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
+    async getUserByToken(body: string): Promise<User> {
+        try {
+            return (await axios.get(
+                (await this.discoveryService.resolve(AUTHENTICATION_SERVICE_NAME)) + "/tokens/" + body,
+            )).data;
+        } catch (e) {
+            return customErrorWrapper(e);
+        }
+    }
+
     static getInstance() {
         if (!instance) {
             instance = new AuthenticationServiceImpl(new DiscoveryServiceImpl());

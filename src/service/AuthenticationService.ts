@@ -17,4 +17,6 @@ export interface AuthenticationService {
 
     createUserTokenByUsernameAndPassword(username: string, password: string): Promise<UserToken>;
 
+    getUserByToken(body: string): Promise<User>;
+
 }
