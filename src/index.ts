@@ -1,9 +1,9 @@
 import "reflect-metadata";
 import * as dotenv                from 'dotenv';
 // @ts-ignore
-import * as express               from 'express';
-import * as bodyParser            from 'body-parser';
-import * as mongoose              from 'mongoose';
+import express                    from 'express';
+import bodyParser                 from 'body-parser';
+import mongoose                   from 'mongoose';
 import {ApolloServer}             from "apollo-server-express";
 import {resolver}                 from './graphql/resolver';
 import {schema}                   from "./graphql/schema";
@@ -21,8 +21,10 @@ app.use(authenticationMiddleware);
 
 const server = new ApolloServer({
     typeDefs: schema,
+    // @ts-ignore
     resolvers: resolver,
     context: ({req}) => ({
+        // @ts-ignore
         user: req.user,
     }),
 });
