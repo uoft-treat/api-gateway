@@ -1,9 +1,11 @@
 import {PermissionService}  from "../PermissionService";
 import {User, UserRoleEnum} from "../AuthenticationService";
 import {PermissionError}    from "../error/PermissionError";
+import {injectable}         from "inversify";
 
 let instance: PermissionServiceImpl = null;
 
+@injectable()
 export class PermissionServiceImpl implements PermissionService {
 
 

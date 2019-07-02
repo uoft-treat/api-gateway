@@ -1,18 +1,16 @@
-import {AuthenticationServiceImpl} from "../service/impl/AuthenticationServiceImpl";
-import {AuthenticationService}     from "../service/AuthenticationService";
-import {PermissionService}         from "../service/PermissionService";
-import {PermissionServiceImpl}     from "../service/impl/PermissionServiceImpl";
+import {AuthenticationService} from "../service/AuthenticationService";
+import {PermissionService}     from "../service/PermissionService";
+import {inject, injectable}    from "inversify";
 
-let instance: AuthenticationServiceController = null;
-
+@injectable()
 export class AuthenticationServiceController {
 
     authenticationService: AuthenticationService;
     permissionService: PermissionService;
 
     constructor(
-        authenticationService: AuthenticationService,
-        permissionService: PermissionService,
+        @inject('AuthenticationService') authenticationService: AuthenticationService,
+        @inject('PermissionService') permissionService: PermissionService,
     ) {
         this.authenticationService = authenticationService;
         this.permissionService = permissionService;
@@ -30,15 +28,5 @@ export class AuthenticationServiceController {
     getMe = async (_, __, {user}) => {
         return user;
     };
-
-    static getInstance() {
-        if (!instance) {
-            instance = new AuthenticationServiceController(
-                AuthenticationServiceImpl.getInstance(),
-                PermissionServiceImpl.getInstance(),
-            );
-        }
-        return instance;
-    }
 
 }

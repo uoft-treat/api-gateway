@@ -1,14 +1,15 @@
-import '@babel/polyfill';
+import "reflect-metadata";
 import * as dotenv                from 'dotenv';
 // @ts-ignore
-import {default as express}       from 'express';
+import * as express               from 'express';
 import * as bodyParser            from 'body-parser';
-import mongoose                   from 'mongoose';
+import * as mongoose              from 'mongoose';
 import {ApolloServer}             from "apollo-server-express";
-import {DiscoveryServiceImpl}     from "./service/impl/DiscoveryServiceImpl";
 import {resolver}                 from './graphql/resolver';
 import {schema}                   from "./graphql/schema";
 import {authenticationMiddleware} from "./middleware/authenticationMiddleware";
+import container                  from "./inversify.config";
+import {DiscoveryService}         from "./service/DiscoveryService";
 
 dotenv.config();
 
@@ -21,14 +22,14 @@ app.use(authenticationMiddleware);
 const server = new ApolloServer({
     typeDefs: schema,
     resolvers: resolver,
-    context: ({ req }) => ({
+    context: ({req}) => ({
         user: req.user,
     }),
 });
 server.applyMiddleware({app, path: "/graphql"});
 
 // Initialize discovery service
-const discoveryService = new DiscoveryServiceImpl(process.env.DISCOVERY_SERVICE_URL);
+const discoveryService = container.get<DiscoveryService>('DiscoveryService');
 discoveryService.validate().catch(() => {
     console.log("Discovery service validation failure.");
     process.exit()

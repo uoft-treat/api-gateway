@@ -2,6 +2,10 @@ import {DiscoveryService}                from "../DiscoveryService";
 import axios                             from 'axios';
 import {DiscoveryServiceValidationError} from "../error/DiscoveryServiceValidationError";
 import {DiscoveryServiceError}           from "../error/DiscoveryServiceError";
+import {injectable}                      from "inversify";
+import * as dotenv                       from "dotenv";
+
+dotenv.config();
 
 type CacheEntry = {
     endpoint: string,
@@ -10,13 +14,14 @@ type CacheEntry = {
 
 const TTL = 300000;
 
+@injectable()
 export class DiscoveryServiceImpl implements DiscoveryService {
 
     endpoint: string;
     cache: { [key: string]: CacheEntry } = {};
 
-    constructor(endpoint?: string) {
-        this.endpoint = endpoint || 'http://localhost:3030';
+    constructor() {
+        this.endpoint = process.env.DISCOVERY_SERVICE_URL;
     }
 
     /**
@@ -53,10 +58,12 @@ export class DiscoveryServiceImpl implements DiscoveryService {
         // Hit the actual service
         let result;
         try {
+            console.log(this.endpoint + "/apis/" + serviceName);
             result = await axios.get(this.endpoint + "/apis/" + serviceName);
         } catch (e) {
             throw new DiscoveryServiceError("Failed to resolve service " + serviceName);
         }
+
 
         // Randomly select an endpoint
         if (result.data.endpoints.length == 0) {

@@ -2,17 +2,18 @@ import {AuthenticationService, User, UserToken} from "../AuthenticationService";
 import axios                                    from "axios";
 import {customErrorWrapper}                     from "../../configuration/customErrorWrapper";
 import {DiscoveryService}                       from "../DiscoveryService";
-import {DiscoveryServiceImpl}                   from "./DiscoveryServiceImpl";
-
-let instance: AuthenticationServiceImpl = null;
+import {inject, injectable}                     from "inversify";
 
 const AUTHENTICATION_SERVICE_NAME = 'authentication-service';
 
+@injectable()
 export class AuthenticationServiceImpl implements AuthenticationService {
 
     discoveryService: DiscoveryService;
 
-    constructor(discoveryService: DiscoveryService) {
+    constructor(
+        @inject('DiscoveryService') discoveryService: DiscoveryService
+    ) {
         this.discoveryService = discoveryService;
     }
 
@@ -46,13 +47,6 @@ export class AuthenticationServiceImpl implements AuthenticationService {
         } catch (e) {
             return customErrorWrapper(e);
         }
-    }
-
-    static getInstance() {
-        if (!instance) {
-            instance = new AuthenticationServiceImpl(new DiscoveryServiceImpl());
-        }
-        return instance;
     }
 
 }
