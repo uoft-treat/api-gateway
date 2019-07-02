@@ -29,6 +29,7 @@ export const experimentTemplate = gql`
     extend type Mutation {
         createExperimentTemplate(data: CreateExperimentTemplateInput!): String
         updateExperimentTemplate(id: String!, data: UpdateExperimentTemplateInput!): String
+        deleteExperimentTemplate(id: String!): Boolean
     }
     
 `;

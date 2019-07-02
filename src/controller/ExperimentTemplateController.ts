@@ -32,4 +32,9 @@ export class ExperimentTemplateController {
         return await this.experimentTemplateService.updateOneExperimentTemplateById(id, data);
     };
 
+    deleteTemplate = async (_, {id}) => {
+        await this.experimentTemplateService.deleteOneExperimentTemplateById(id);
+        return true;
+    };
+
 }

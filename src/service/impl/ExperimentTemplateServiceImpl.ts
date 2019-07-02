@@ -35,8 +35,18 @@ export class ExperimentTemplateServiceImpl implements ExperimentTemplateService 
         }
     }
 
-    deleteOneExperimentTemplateById(id: string): Promise<void> {
-        return undefined;
+    /**
+     * Remove one template by ID.
+     * @param id
+     */
+    async deleteOneExperimentTemplateById(id: string): Promise<void> {
+        try {
+            (await axios.delete(
+                (await this.discoveryService.resolve(EXPERIMENT_TEMPLATE_SERVICE_NAME)) + "/experimentTemplates/" + id,
+            ));
+        } catch (e) {
+            return customErrorWrapper(e);
+        }
     }
 
     /**
