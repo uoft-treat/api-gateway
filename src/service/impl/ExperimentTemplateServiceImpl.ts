@@ -66,18 +66,36 @@ export class ExperimentTemplateServiceImpl implements ExperimentTemplateService 
         }
     }
 
-    updateOneExperimentTemplateById(id: string, body: ExperimentTemplatePatchBody): Promise<string> {
-        return undefined;
-    }
-
-    async getDataSchemaForExperimentTemplate(template: ExperimentTemplate): Promise<string> {
+    /**
+     * Update an experiment template by ID.
+     * @param id
+     * @param body
+     */
+    async updateOneExperimentTemplateById(id: string, body: ExperimentTemplatePatchBody): Promise<string> {
         try {
-            return JSON.stringify((await axios.get(
-                url.resolve(template.link, "/treat-schema.json")
-            )).data);
+            return (await axios.patch(
+                (await this.discoveryService.resolve(EXPERIMENT_TEMPLATE_SERVICE_NAME)) + "/experimentTemplates/" + id,
+                {...body}
+            )).data._id;
         } catch (e) {
             return customErrorWrapper(e);
         }
+    }
+
+    /**
+     * Given a template, fetch the data schema.
+     * @param template
+     */
+    async getDataSchemaForExperimentTemplate(template: ExperimentTemplate): Promise<string> {
+        let result;
+        try {
+            result = (await axios.get(
+                url.resolve(template.link, "/treat-schema.json")
+            )).data;
+        } catch (e) {
+            return "Invalid schema.";
+        }
+        return JSON.stringify(result);
     }
 
 }

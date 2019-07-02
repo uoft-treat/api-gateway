@@ -11,6 +11,7 @@ export const experimentTemplate = {
         experimentTemplates: experimentTemplateController.getAllTemplates
     },
     Mutation: {
-        createExperimentTemplate: experimentTemplateController.createTemplate
+        createExperimentTemplate: experimentTemplateController.createTemplate,
+        updateExperimentTemplate: experimentTemplateController.updateTemplate,
     }
 };

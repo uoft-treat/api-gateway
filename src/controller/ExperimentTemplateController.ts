@@ -26,6 +26,10 @@ export class ExperimentTemplateController {
 
     getDataSchema = async (template: ExperimentTemplate) => {
         return await this.experimentTemplateService.getDataSchemaForExperimentTemplate(template);
-    }
+    };
+
+    updateTemplate = async (_, {id, data}) => {
+        return await this.experimentTemplateService.updateOneExperimentTemplateById(id, data);
+    };
 
 }

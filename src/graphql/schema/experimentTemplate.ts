@@ -16,12 +16,19 @@ export const experimentTemplate = gql`
         link: String!
     }
     
+    input UpdateExperimentTemplateInput {
+        name: String,
+        description: String,
+        link: String,
+    }
+    
     extend type Query {
         experimentTemplates(id: String): [ExperimentTemplate]
     }
     
     extend type Mutation {
         createExperimentTemplate(data: CreateExperimentTemplateInput!): String
+        updateExperimentTemplate(id: String!, data: UpdateExperimentTemplateInput!): String
     }
     
 `;
