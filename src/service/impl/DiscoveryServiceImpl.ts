@@ -22,6 +22,7 @@ export class DiscoveryServiceImpl implements DiscoveryService {
 
     constructor() {
         this.endpoint = process.env.DISCOVERY_SERVICE_URL;
+        console.log("Discovery service initialized with URL", this.endpoint);
     }
 
     /**
