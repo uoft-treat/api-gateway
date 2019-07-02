@@ -17,7 +17,7 @@ export const experimentTemplate = gql`
     }
     
     extend type Query {
-        experimentTemplates: [ExperimentTemplate]
+        experimentTemplates(id: String): [ExperimentTemplate]
     }
     
     extend type Mutation {

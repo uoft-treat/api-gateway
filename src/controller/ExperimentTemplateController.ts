@@ -12,8 +12,12 @@ export class ExperimentTemplateController {
         this.experimentTemplateService = experimentTemplateService;
     }
 
-    getAllTemplates = async () => {
-        return await this.experimentTemplateService.getAllExperimentTemplates();
+    getAllTemplates = async (_, {id}) => {
+        if (!id) {
+            return await this.experimentTemplateService.getAllExperimentTemplates();
+        } else {
+            return [await this.experimentTemplateService.getOneExperimentTemplateById(id)];
+        }
     };
 
     createTemplate = async (_, {data: {name, description, link}}) => {

@@ -52,8 +52,18 @@ export class ExperimentTemplateServiceImpl implements ExperimentTemplateService 
         }
     }
 
-    getOneExperimentTemplateById(id: string): Promise<ExperimentTemplate> {
-        return undefined;
+    /**
+     * Find one template by ID.
+     * @param id
+     */
+    async getOneExperimentTemplateById(id: string): Promise<ExperimentTemplate> {
+        try {
+            return (await axios.get(
+                (await this.discoveryService.resolve(EXPERIMENT_TEMPLATE_SERVICE_NAME)) + "/experimentTemplates/" + id,
+            )).data;
+        } catch (e) {
+            return customErrorWrapper(e);
+        }
     }
 
     updateOneExperimentTemplateById(id: string, body: ExperimentTemplatePatchBody): Promise<string> {
