@@ -4,6 +4,7 @@ import {DiscoveryServiceValidationError} from "../error/DiscoveryServiceValidati
 import {DiscoveryServiceError}           from "../error/DiscoveryServiceError";
 import {injectable}                      from "inversify";
 import * as dotenv                       from "dotenv";
+import {Logger}                          from "../../logger/Logger";
 
 dotenv.config();
 
@@ -51,26 +52,28 @@ export class DiscoveryServiceImpl implements DiscoveryService {
             if ((new Date().getTime() - this.cache[serviceName].cachedAt.getTime()) > TTL) {
                 this.cache[serviceName] = null;
             } else {
+                const result = this.cache[serviceName].endpoint;
+                Logger.log("[Discovery] Cache hit for service", serviceName, "->", result);
                 // Cache is still valid
-                return this.cache[serviceName].endpoint;
+                return result;
             }
         }
 
         // Hit the actual service
         let result;
         try {
-            console.log(this.endpoint + "/apis/" + serviceName);
+            Logger.log("[Discovery] Resolving", this.endpoint + "/apis/" + serviceName);
             result = await axios.get(this.endpoint + "/apis/" + serviceName);
         } catch (e) {
             throw new DiscoveryServiceError("Failed to resolve service " + serviceName);
         }
-
 
         // Randomly select an endpoint
         if (result.data.endpoints.length == 0) {
             throw new DiscoveryServiceError("Failed to resolve service " + serviceName + ", no endpoints available.");
         } else {
             let endpoint = result.data.endpoints[Math.floor(Math.random() * Math.floor(result.data.endpoints.length))];
+            Logger.log("[Discovery] Resolved", serviceName, "->", endpoint);
             this.cache[serviceName] = {
                 endpoint: endpoint,
                 cachedAt: new Date(),
