@@ -22,5 +22,9 @@ export const experimentRegistry = gql`
             data: CreateExperimentInput!
         ): Experiment
     }
+    
+    extend type Query {
+        experiments: [Experiment]
+    }
 
 `;

@@ -8,4 +8,7 @@ export const experimentRegistry = {
     Mutation: {
         createExperiment: experimentRegistryController.createExperiment,
     },
+    Query: {
+        experiments: experimentRegistryController.getExperiments,
+    },
 };

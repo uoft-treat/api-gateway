@@ -16,4 +16,8 @@ export class ExperimentRegistryController {
         return await this.experimentRegistryService.createExperiment(name, author, templateSource, scriptSource);
     };
 
+    getExperiments = async () => {
+        return await this.experimentRegistryService.getAllExperiments();
+    };
+
 }

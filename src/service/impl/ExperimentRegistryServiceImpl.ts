@@ -29,8 +29,14 @@ export class ExperimentRegistryServiceImpl implements ExperimentRegistryService 
         }
     }
 
-    getAllExperiments(): Promise<Experiment[]> {
-        return undefined;
+    async getAllExperiments(): Promise<Experiment[]> {
+        try {
+            return (await axios.get(
+                (await this.discoveryService.resolve(EXPERIMENT_REGISTRY_SERVICE_NAME)) + "/experiments",
+            )).data;
+        } catch (e) {
+            return customErrorWrapper(e);
+        }
     }
 
     getOneExperimentByUuid(uuid: string): Promise<Experiment> {
