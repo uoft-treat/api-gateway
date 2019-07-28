@@ -11,4 +11,8 @@ export const experimentRegistry = {
     Query: {
         experiments: experimentRegistryController.getExperiments,
     },
+    Experiment: {
+        scriptSource: experimentRegistryController.getScriptSource,
+        templateSource: experimentRegistryController.getTemplateSource,
+    }
 };

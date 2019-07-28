@@ -16,8 +16,20 @@ export class ExperimentRegistryController {
         return await this.experimentRegistryService.createExperiment(name, author, templateSource, scriptSource);
     };
 
-    getExperiments = async () => {
-        return await this.experimentRegistryService.getAllExperiments();
+    getExperiments = async (_, {uuid}) => {
+        if(uuid) {
+            return [await this.experimentRegistryService.getOneExperimentByUuid(uuid)];
+        } else {
+            return await this.experimentRegistryService.getAllExperiments();
+        }
+    };
+
+    getScriptSource = async ({uuid}) => {
+        return await this.experimentRegistryService.getOneExperimentScriptSource(uuid);
+    };
+
+    getTemplateSource = async ({uuid}) => {
+        return await this.experimentRegistryService.getOneExperimentTemplateSource(uuid);
     };
 
 }

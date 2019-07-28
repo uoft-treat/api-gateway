@@ -24,7 +24,7 @@ export const experimentRegistry = gql`
     }
     
     extend type Query {
-        experiments: [Experiment]
+        experiments(uuid: String): [Experiment]
     }
 
 `;

@@ -39,16 +39,34 @@ export class ExperimentRegistryServiceImpl implements ExperimentRegistryService 
         }
     }
 
-    getOneExperimentByUuid(uuid: string): Promise<Experiment> {
-        return undefined;
+    async getOneExperimentByUuid(uuid: string): Promise<Experiment> {
+        try {
+            return (await axios.get(
+                (await this.discoveryService.resolve(EXPERIMENT_REGISTRY_SERVICE_NAME)) + "/experiments/" + uuid,
+            )).data;
+        } catch (e) {
+            return customErrorWrapper(e);
+        }
     }
 
-    getOneExperimentScriptSource(uuid: string): Promise<string> {
-        return undefined;
+    async getOneExperimentScriptSource(uuid: string): Promise<string> {
+        try {
+            return (await axios.get(
+                (await this.discoveryService.resolve(EXPERIMENT_REGISTRY_SERVICE_NAME)) + "/experiments/" + uuid + "/scriptSource",
+            )).data;
+        } catch (e) {
+            return customErrorWrapper(e);
+        }
     }
 
-    getOneExperimentTemplateSource(uuid: string): Promise<string> {
-        return undefined;
+    async getOneExperimentTemplateSource(uuid: string): Promise<string> {
+        try {
+            return (await axios.get(
+                (await this.discoveryService.resolve(EXPERIMENT_REGISTRY_SERVICE_NAME)) + "/experiments/" + uuid + "/templateSource",
+            )).data;
+        } catch (e) {
+            return customErrorWrapper(e);
+        }
     }
 
 }
