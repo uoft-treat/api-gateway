@@ -3,6 +3,7 @@ import {surveyQuestion}     from "./surveyQuestion";
 import {authentication}     from "./authentication";
 import {experimentTemplate} from "./experimentTemplate";
 import {widgetRegistry}     from "./widgetRegistry";
+import {experimentRegistry} from "./experimentRegistry";
 
 export const schema = [
     base,
@@ -10,4 +11,5 @@ export const schema = [
     authentication,
     experimentTemplate,
     widgetRegistry,
+    experimentRegistry,
 ];
